@@ -1,0 +1,12 @@
+{
+    "category": "Mythology",
+    "type": "multiple",
+    "difficulty": "easy",
+    "question": "The ancient roman god of war was commonly known as...",
+    "correct_answer": "Mars",
+    "incorrect_answers": [
+        "Jupiter",
+        "Juno",
+        "Ares"
+    ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "full_node_client_server",
+  "version": "0.0.1",
+  "description": "The Party Chain Full Node Client Server",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "forever": "^0.15.3",
+    "fs": "0.0.1-security",
+    "request": "^2.83.0",
+    "request-json": "^0.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Ezra Goss",
+  "license": "MIT"
+}

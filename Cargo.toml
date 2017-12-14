@@ -1,0 +1,7 @@
+[package]
+name = "full_node_client"
+version = "0.1.0"
+authors = ["Ezra Goss <ezragoss@me.com>"]
+
+[dependencies]
+off_blockway = "0.0.3"
