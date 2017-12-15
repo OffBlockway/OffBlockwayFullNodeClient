@@ -8,7 +8,7 @@ const request = require( 'request' )
 
 // The clients
 var client = requestJson.createClient( 'https://boiling-cove-42309.herokuapp.com/' )
-var testing = requestJson.createClient( 'https://132.162.201.225:3000/')
+var testing = requestJson.createClient( 'http://132.162.201.225:3000/')
 // The miners
 
 // Post the passport to the client 
@@ -19,15 +19,6 @@ client.post( 'client/', { json: true }, './json/passport.json', function( err, r
                 else { console.log( res.statusCode ) }
                 
             });
-
-// Kosh post test
-testing.post( 'test/', { json: true }, './json/passport.json', function( err, res, body)
-              {
-                  
-                  if ( err ) { console.log( "Either not on ObieWifi or Kosh is not working: " + res.statusCode )}
-                  else { console.log( "Kosh status: " + res.statusCode ) }
-                      
-              });
 
 // Listening logic
 const express = require( 'express' )

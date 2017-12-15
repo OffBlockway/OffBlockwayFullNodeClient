@@ -1,13 +1,16 @@
 extern crate off_blockway;
-//extern crate serde_derive;
+#[macro_use]
+extern crate serde_derive;
 
 use std::io;
 use std::io::prelude::*;
 use std::process::Command;
-
+use self::json::Parser;
 
 
 mod styling;
+mod json;
+
 
 fn main() {
 
@@ -15,6 +18,12 @@ fn main() {
     let input = io::stdin();
     print!( "{}\n", styling::HEADER );
 
+
+    // Generate the operator 
+    let mut operator = json::Operator::empty();
+    operator.operate( json::Parser::parse_package( "json/dummy.json" ).expect(" Could not construct package") );
+    println!( "{:?}", ( operator.uid, operator.chain ) );
+    
     // Start the node server 
     Command::new( "forever" ).args( &[ "start", "js/server.js" ] ).output().expect( "Could not start server" );
     
