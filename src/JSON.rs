@@ -2,7 +2,14 @@
 extern crate serde;
 extern crate serde_json;
 extern crate off_blockway;
+extern crate chrono;
 
+
+// Used for timestamping 
+use self::chrono::Utc;
+use std::io;
+use std::io::prelude::*;
+use std::process::Command;
 use self::serde_json::Value;
 use std::io::{ Error, ErrorKind };
 use std::vec::Vec;
@@ -25,7 +32,7 @@ use std::io::prelude::*;
 
 
 // Registration information ( can be used for miner info )
-#[derive( Serialize, Deserialize )]
+#[derive( Clone, Serialize, Deserialize, Debug )]
 pub struct Passport
 {
     // The hash of the URL
@@ -35,6 +42,51 @@ pub struct Passport
     // URL
     pub url: String
 }
+
+impl Passport
+{
+
+    // Constructor
+    pub fn new() -> Passport
+    {
+
+        
+        // Construct passport
+        let mut url = Command::new( "ipconfig" ).args( &["getifaddr", "en0"] ).output().unwrap();
+        let mut url_string: String = String::from_utf8( url.stdout ).unwrap();
+        let len = url_string.clone().len();
+        url_string.truncate( len - 2 );
+        url_string = url_string.clone() + ":3000";
+        
+        // Construct timestamp
+        let timestamp = Utc::now().to_string();
+
+        // Construct uid
+        let uid = create_leaf_hash( &url_string );
+
+        Passport
+        {
+
+            uid: uid,
+            timestamp: timestamp,
+            url: url_string
+            
+        }
+        
+    }
+
+    pub fn write_passport()
+    {
+
+        let passport = Passport::new();
+        let mut file = File::create("json/passport.json").expect("Can not open file");
+        file.write( serde_json::to_string( &Passport::new() ).unwrap().as_ref() );
+        
+    }
+
+    
+}
+
 
 // The unit enums for the tuple index of each type
 pub enum Parser
@@ -94,6 +146,13 @@ impl Parser
         Ok( ( uid, transactions, block ) )
     }
     
+    pub fn check_file( filepath: String ) -> bool
+    {
+
+        return true;
+        
+    }
+    
 }
 
 // struct for checking block and merkle tree construction
@@ -101,9 +160,9 @@ pub struct Operator
 {
 
     // Index
-    index: usize,
-    chain: Chain,
-    merkle: HashMap< String, Merkle >
+    pub index: usize,
+    pub chain: Chain,
+    pub merkle: HashMap< String, Merkle >
         
 }
 
@@ -126,6 +185,7 @@ impl Operator
         }
         
     }
+    // Create an empty operator
     pub fn empty( ) -> Operator
     {
 
@@ -161,5 +221,8 @@ impl Operator
         self.merkle.insert( fields.2.merkle_root().clone(), Merkle::new( fields.1 ) );
         
     }
+    // 
 
 }
+
+

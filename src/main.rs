@@ -18,11 +18,8 @@ fn main() {
     let input = io::stdin();
     print!( "{}\n", styling::HEADER );
 
-
-    // Generate the operator 
-    let mut operator = json::Operator::empty();
-    operator.operate( json::Parser::parse_package( "json/dummy.json" ).expect(" Could not construct package") );
-    println!( "{:?}", ( operator.uid, operator.chain ) );
+    // Write passport
+    json::Passport::write_passport();
     
     // Start the node server 
     Command::new( "forever" ).args( &[ "start", "js/server.js" ] ).output().expect( "Could not start server" );
@@ -35,7 +32,9 @@ fn main() {
         
         //TODO: Get the cursor working with reading a line at a time
         //print!( "\n{}", styling::CURSOR );
-
+        
+        
+        
         if input.clone() == "-h"
         {
             println!( "{}", styling::HELP );

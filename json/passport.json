@@ -1,12 +1,1 @@
-{
-    "category": "Mythology",
-    "type": "multiple",
-    "difficulty": "easy",
-    "question": "The ancient roman god of war was commonly known as...",
-    "correct_answer": "Mars",
-    "incorrect_answers": [
-        "Jupiter",
-        "Juno",
-        "Ares"
-    ]
-}
+{"uid":"3eea0f1277bda2e87ea12422be672469787d0ce7b7da7f6178e104baeaaeb5d6","timestamp":"2017-12-15 23:47:11.003856 UTC","url":"132.162.68.5:3000"}
